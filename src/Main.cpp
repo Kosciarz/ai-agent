@@ -22,7 +22,7 @@ std::string ParsePrompt(const int argc, const char* argv[], std::istream& stream
         }
     }
 
-    Trim(prompt);
+    string_utils::Trim(prompt);
 
     if (prompt == "")
         throw std::runtime_error{"empty prompt input"};
