@@ -4,14 +4,35 @@
 #include <print>
 #include <string>
 
+#ifdef _WIN32
+#include <io.h>
+#include <cstdio>
+#else
+#include <unistd.h>
+#endif
+
+bool IsStdinInteractive()
+{
+#ifdef _WIN32
+    return _isatty(_fileno(stdin));
+#else
+    return isatty(fileno(stdin));
+#endif
+}
+
 std::string ParsePrompt(const int argc, const char* argv[], std::istream& stream)
 {
     std::string prompt;
 
     if (argc < 2)
     {
-        std::cout << "agent ";
+        if (IsStdinInteractive())
+            std::cout << "agent ";
+
         std::getline(stream, prompt);
+
+        if (prompt == "")
+            throw std::runtime_error{"empty prompt input. Usage: agent \"...\""};
     }
     else
     {
@@ -25,7 +46,7 @@ std::string ParsePrompt(const int argc, const char* argv[], std::istream& stream
     string_utils::Trim(prompt);
 
     if (prompt == "")
-        throw std::runtime_error{"empty prompt input"};
+        throw std::runtime_error{"invalid prompt input. Usage: agent \"...\""};
 
     return prompt;
 }
