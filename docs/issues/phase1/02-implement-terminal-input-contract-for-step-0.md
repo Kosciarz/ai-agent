@@ -17,7 +17,7 @@ Implement Step 0 behavior where the user sends one request via terminal and the 
 
 ## Acceptance Criteria
 - [ ] Implement prompt ingestion in `src/Main.cpp` (or extracted input module).
-- [ ] Add path for `ai "<prompt>"` style argument input.
+- [ ] Add path for `agent "<prompt>"` style argument input.
 - [ ] Add stdin fallback path when no prompt argument exists.
 - [ ] Return non-zero exit code for empty input and print actionable error.
 - [ ] Verify with manual commands for argv, stdin, and empty input cases.

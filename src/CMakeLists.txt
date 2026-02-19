@@ -2,4 +2,8 @@ set(SOURCES
     "Main.cpp"
 )
 
-add_executable(why ${SOURCES})
+set(HEADERS
+    "StringUtils.hpp"
+)
+
+add_executable(agent ${SOURCES} ${HEADERS})
