@@ -1,0 +1,26 @@
+# IDE
+.vs/
+.vs-code/
+.idea/
+build/
+install/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+compile_commands.json
+*.iml
+
+# C++
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+*.out
+*.a
+*.lib
+*.pch
+*.pdb
+
+# Logs
+*.log

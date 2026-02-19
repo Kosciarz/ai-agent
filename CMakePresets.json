@@ -1,0 +1,45 @@
+{
+    "version": 10,
+    "configurePresets": [
+        {
+            "name": "ninja-base",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "installDir": "${sourceDir}/install/${presetName}",
+            "hidden": true
+        },
+        {
+            "name": "ninja-debug",
+            "displayName": "Ninja Debug",
+            "inherits": [
+                "ninja-base"
+            ],
+            "description": "Debug configuration with Ninja generator.",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "ninja-release",
+            "displayName": "Ninja Release",
+            "inherits": [
+                "ninja-base"
+            ],
+            "description": "Release configuration with Ninja generator.",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "ninja-relwithdebinfo",
+            "displayName": "Ninja RelWithDebInfo",
+            "inherits": [
+                "ninja-base"
+            ],
+            "description": "Release with Debug Information configuration with Ninja generator.",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            }
+        }
+    ]
+}
