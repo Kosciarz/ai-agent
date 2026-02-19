@@ -31,6 +31,8 @@ std::string ParsePrompt(const int argc, const char* argv[], std::istream& stream
             std::cout << "agent ";
 
         std::getline(stream, prompt);
+        if (!stream)
+            throw std::runtime_error{"failed to read prompt input from stdin"};
 
         if (prompt == "")
             throw std::runtime_error{"empty prompt input. Usage: agent \"...\""};
