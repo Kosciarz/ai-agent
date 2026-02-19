@@ -3,6 +3,7 @@
 #include <iostream>
 #include <print>
 #include <string>
+#include <stdexcept>
 
 #ifdef _WIN32
 #include <io.h>
