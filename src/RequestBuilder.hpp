@@ -11,11 +11,17 @@ enum class Tools
 class RequestBuilder
 {
 public:
-    void ParsePrompt(int argc, const char* argv[], std::istream& stream);
-    void BuildRequest();
+    void ReadPrompt(int argc, const char* argv[], std::istream& stream);
+    void BuildRequest(const std::string& prompt);
 
     [[nodiscard]] const std::string& Prompt() const { return m_Prompt; }
     [[nodiscard]] const std::string& Request() const { return m_Request; }
+
+private:
+    static std::string ResolveInput(int argc, const char* argv[], std::istream& stream, bool isTerminalInteractive);
+    static std::string ParsePrompt(const std::string& prompt);
+
+    friend class RequestBuilderTest;
 
 private:
     std::string m_Prompt;

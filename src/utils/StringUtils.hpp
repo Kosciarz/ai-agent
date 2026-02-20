@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <cctype>
 
-namespace string_utils
+namespace utils
 {
     inline void LeftTrim(std::string& s)
     {
@@ -22,9 +22,11 @@ namespace string_utils
         }).base(), s.end());
     }
 
-    inline void Trim(std::string& s)
+    inline std::string Trim(const std::string& s)
     {
-        LeftTrim(s);
-        RightTrim(s);
+        auto temp = s;
+        LeftTrim(temp);
+        RightTrim(temp);
+        return temp;
     }
 }

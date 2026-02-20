@@ -7,11 +7,14 @@
 #include <unistd.h>
 #endif
 
-inline bool IsStdinInteractive()
+namespace utils
 {
+    inline bool IsStdinInteractive()
+    {
 #ifdef _WIN32
-    return _isatty(_fileno(stdin));
+        return _isatty(_fileno(stdin));
 #else
-    return isatty(fileno(stdin));
+        return isatty(fileno(stdin));
 #endif
+    }
 }

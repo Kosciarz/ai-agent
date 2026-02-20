@@ -1,5 +1,10 @@
 {
     "version": 10,
+    "cmakeMinimumRequired": {
+        "major": 4,
+        "minor": 0,
+        "patch": 0
+    },
     "configurePresets": [
         {
             "name": "ninja-base",
@@ -39,6 +44,19 @@
             "description": "Release with Debug Information configuration with Ninja generator.",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            }
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "test-all",
+            "displayName": "Test All",
+            "configurePreset": "ninja-debug",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "stopOnFailure": true
             }
         }
     ]

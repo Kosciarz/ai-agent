@@ -9,38 +9,44 @@
 
 #include <sstream>
 
-void RequestBuilder::ParsePrompt(const int argc, const char* argv[], std::istream& stream)
+void RequestBuilder::ReadPrompt(const int argc, const char* argv[], std::istream& stream)
 {
-    if (argc < 2)
-    {
-        if (IsStdinInteractive())
-            std::cout << "agent ";
-
-        std::getline(stream, m_Prompt);
-        if (!stream)
-            throw ParsePromptError{"failed to read prompt input from stdin"};
-
-        if (m_Prompt.empty())
-            throw ParsePromptError{"empty prompt input. Usage: agent \"...\""};
-    }
-    else
-    {
-        std::ostringstream oss;
-        for (auto i = 1; i < argc; ++i)
-            oss << argv[i] << " ";
-        m_Prompt = oss.str();
-    }
-
-    string_utils::Trim(m_Prompt);
-
-    if (m_Prompt.empty())
-        throw ParsePromptError{"invalid prompt input. Usage: agent \"...\""};
+    const auto rawInput = ResolveInput(argc, argv, stream, utils::IsStdinInteractive());
+    m_Prompt = ParsePrompt(rawInput);
 }
 
-void RequestBuilder::BuildRequest()
+std::string RequestBuilder::ResolveInput(const int argc, const char* argv[], std::istream& stream, const bool isTerminalInteractive)
+{
+    if (argc > 1)
+    {
+        std::ostringstream oss;
+        for (int i = 1; i < argc; ++i)
+            oss << argv[i] << " ";
+        return oss.str();
+    }
+
+    if (isTerminalInteractive)
+        std::cout << "agent ";
+
+    std::string line;
+    if (!std::getline(stream, line))
+        throw std::runtime_error{"failed to read prompt input from stdin"};
+
+    return line;
+}
+
+std::string RequestBuilder::ParsePrompt(const std::string& prompt)
+{
+    if (utils::Trim(prompt).empty())
+        throw ParsePromptError{"invalid prompt input. Usage: agent \"...\""};
+    return prompt;
+}
+
+
+void RequestBuilder::BuildRequest(const std::string& prompt)
 {
     std::ostringstream oss;
-    oss << "You are an AI assistant. The user asked: " << m_Prompt << '\n';
+    oss << "You are an AI assistant. The user asked: " << prompt << '\n';
     oss << "Available tools you may call exactly once:" << '\n';
     oss << "- run_command" << '\n';
     oss << "- read_file" << '\n';

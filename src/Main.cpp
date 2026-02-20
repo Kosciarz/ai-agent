@@ -11,10 +11,10 @@ int main(const int argc, const char* argv[])
 {
     try
     {
-        RequestBuilder requestBuilder;
-        requestBuilder.ParsePrompt(argc, argv, std::cin);
-        requestBuilder.BuildRequest();
-        std::println("Request: {}", requestBuilder.Request());
+        const auto prompt = RequestBuilder::ReadPrompt(argc, argv, std::cin);
+        const auto parsedPrompt = RequestBuilder::ParsePrompt(prompt);
+        RequestBuilder::BuildRequest(prompt);
+        std::println("Request: {}", request);
     }
     catch (const std::runtime_error& e)
     {
