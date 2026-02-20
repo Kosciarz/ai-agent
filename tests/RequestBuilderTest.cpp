@@ -23,7 +23,7 @@ TEST_F(RequestBuilderTest, ReadPrompt_ValidInput_ReadsAndStoresPrompt)
     EXPECT_EQ(m_RequestBuilder.Prompt(), "input prompt");
 }
 
-TEST_F(RequestBuilderTest, BuildRequst_BuildProperRequest)
+TEST_F(RequestBuilderTest, BuildRequest_BuildProperRequest)
 {
     m_RequestBuilder.BuildRequest();
 
