@@ -43,10 +43,10 @@ std::string RequestBuilder::ParsePrompt(const std::string& prompt)
 }
 
 
-void RequestBuilder::BuildRequest(const std::string& prompt)
+void RequestBuilder::BuildRequest()
 {
     std::ostringstream oss;
-    oss << "You are an AI assistant. The user asked: " << prompt << '\n';
+    oss << "You are an AI assistant. The user asked: " << m_Prompt << '\n';
     oss << "Available tools you may call exactly once:" << '\n';
     oss << "- run_command" << '\n';
     oss << "- read_file" << '\n';
