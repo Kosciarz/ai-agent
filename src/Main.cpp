@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <print>
-#include <string>
 #include <stdexcept>
 
 int main(const int argc, const char* argv[])

@@ -28,9 +28,6 @@ namespace utils
 
     std::string Trim(const std::string& s)
     {
-        auto trimmed = s;
-        trimmed = LeftTrim(trimmed);
-        trimmed = RightTrim(trimmed);
-        return trimmed;
+        return RightTrim(LeftTrim(s));
     }
 }

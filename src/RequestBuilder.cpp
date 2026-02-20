@@ -1,5 +1,3 @@
-#pragma once
-
 #include "RequestBuilder.hpp"
 
 #include "utils/PlatformUtils.hpp"

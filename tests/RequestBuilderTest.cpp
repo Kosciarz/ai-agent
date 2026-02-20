@@ -29,7 +29,7 @@ TEST_F(RequestBuilderTest, BuildRequst_BuildProperRequest)
 
     EXPECT_EQ(m_RequestBuilder.Request(),
               "You are an AI assistant. The user asked: " "input prompt" "\n"
-              "Available tools you may call exactly once:"  "\n"
+              "Available tools you may call exactly once:" "\n"
               "- run_command" "\n"
               "- read_file" "\n"
               "- list_directory" "\n"
