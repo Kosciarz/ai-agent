@@ -3,7 +3,10 @@ set(SOURCES
 )
 
 set(HEADERS
-    "StringUtils.hpp"
+    "utils/StringUtils.hpp"
+    "exception/ParsePromptError.hpp"
+    "utils/StringUtils.hpp"
+    "utils/PlatformUtils.hpp"
 )
 
 add_executable(agent ${SOURCES} ${HEADERS})

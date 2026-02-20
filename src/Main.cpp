@@ -1,25 +1,13 @@
-#include "StringUtils.hpp"
+#include "exception/ParsePromptError.hpp"
+
+#include "utils/StringUtils.hpp"
+#include "utils/PlatformUtils.hpp"
 
 #include <iostream>
 #include <print>
+#include <sstream>
 #include <string>
 #include <stdexcept>
-
-#ifdef _WIN32
-#include <io.h>
-#include <cstdio>
-#else
-#include <unistd.h>
-#endif
-
-bool IsStdinInteractive()
-{
-#ifdef _WIN32
-    return _isatty(_fileno(stdin));
-#else
-    return isatty(fileno(stdin));
-#endif
-}
 
 std::string ParsePrompt(const int argc, const char* argv[], std::istream& stream)
 {
@@ -32,24 +20,23 @@ std::string ParsePrompt(const int argc, const char* argv[], std::istream& stream
 
         std::getline(stream, prompt);
         if (!stream)
-            throw std::runtime_error{"failed to read prompt input from stdin"};
+            throw ParsePromptError{"failed to read prompt input from stdin"};
 
-        if (prompt == "")
-            throw std::runtime_error{"empty prompt input. Usage: agent \"...\""};
+        if (prompt.empty())
+            throw ParsePromptError{"empty prompt input. Usage: agent \"...\""};
     }
     else
     {
-        for (std::size_t i = 1; i < argc; ++i)
-        {
-            prompt += argv[i];
-            prompt += " ";
-        }
+        std::ostringstream oss;
+        for (auto i = 1; i < argc; ++i)
+            oss << argv[i] << " ";
+        prompt = oss.str();
     }
 
     string_utils::Trim(prompt);
 
-    if (prompt == "")
-        throw std::runtime_error{"invalid prompt input. Usage: agent \"...\""};
+    if (prompt.empty())
+        throw ParsePromptError{"invalid prompt input. Usage: agent \"...\""};
 
     return prompt;
 }
