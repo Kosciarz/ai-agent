@@ -1,6 +1,6 @@
 #pragma once
 
-#include <iostream>
+#include <istream>
 #include <string>
 
 enum class Tools
@@ -16,12 +16,6 @@ public:
 
     [[nodiscard]] const std::string& Prompt() const { return m_Prompt; }
     [[nodiscard]] const std::string& Request() const { return m_Request; }
-
-private:
-    static std::string ResolveInput(int argc, const char* argv[], std::istream& stream, bool isTerminalInteractive);
-    static std::string ParsePrompt(const std::string& prompt);
-
-    friend class RequestBuilderTest;
 
 private:
     std::string m_Prompt;

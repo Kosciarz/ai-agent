@@ -11,9 +11,16 @@ include(FetchContent)
 
 FetchContent_Declare(
     json
-    URL
-    https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz
+    URL https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz
 )
-FetchContent_MakeAvailable(json)
+
+FetchContent_Declare(
+    googletest
+    URL https://github.com/google/googletest/releases/download/v1.17.0/googletest-1.17.0.tar.gz
+)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+FetchContent_MakeAvailable(json googletest)
 
 add_subdirectory(src)
+add_subdirectory(tests)

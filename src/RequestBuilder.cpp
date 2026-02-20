@@ -2,46 +2,17 @@
 
 #include "RequestBuilder.hpp"
 
-#include "exception/ParsePromptError.hpp"
-
 #include "utils/PlatformUtils.hpp"
-#include "utils/StringUtils.hpp"
+#include "utils/PromptUtils.hpp"
 
+#include <istream>
 #include <sstream>
 
 void RequestBuilder::ReadPrompt(const int argc, const char* argv[], std::istream& stream)
 {
-    const auto rawInput = ResolveInput(argc, argv, stream, utils::IsStdinInteractive());
-    m_Prompt = ParsePrompt(rawInput);
+    const auto prompt = utils::ResolveInput(argc, argv, stream, utils::IsTerminalInteractive());
+    m_Prompt = utils::ParsePrompt(prompt);
 }
-
-std::string RequestBuilder::ResolveInput(const int argc, const char* argv[], std::istream& stream, const bool isTerminalInteractive)
-{
-    if (argc > 1)
-    {
-        std::ostringstream oss;
-        for (int i = 1; i < argc; ++i)
-            oss << argv[i] << " ";
-        return oss.str();
-    }
-
-    if (isTerminalInteractive)
-        std::cout << "agent ";
-
-    std::string line;
-    if (!std::getline(stream, line))
-        throw std::runtime_error{"failed to read prompt input from stdin"};
-
-    return line;
-}
-
-std::string RequestBuilder::ParsePrompt(const std::string& prompt)
-{
-    if (utils::Trim(prompt).empty())
-        throw ParsePromptError{"invalid prompt input. Usage: agent \"...\""};
-    return prompt;
-}
-
 
 void RequestBuilder::BuildRequest()
 {
