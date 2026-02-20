@@ -18,7 +18,7 @@ TEST(PromptUtilsTest, ParsePrompt_ValidInput_TrimmedCorrectly)
     EXPECT_EQ(utils::ParsePrompt(" valid\ninput "), "valid\ninput");
 }
 
-TEST(PromptUtilsTest, ParsePrompt_TrimmsCorrectlyVeryLongInput)
+TEST(PromptUtilsTest, ParsePrompt_TrimsCorrectlyVeryLongInput)
 {
     EXPECT_EQ(utils::ParsePrompt(std::string(10000, 'x')), std::string(10000, 'x'));
 }
